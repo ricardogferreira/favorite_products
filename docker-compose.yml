@@ -1,0 +1,109 @@
+version: "3"
+
+services:
+  rabbit:
+    image: bitnami/rabbitmq
+    environment:
+      RABBITMQ_USERNAME: "admin"
+      RABBITMQ_PASSWORD: "test123"
+      RABBITMQ_VHOST: "favorite_products"
+    ports:
+      - '15674:15672'
+      - '5674:5672'
+    volumes:
+      - .:/app/favorite_products
+    networks:
+      - rabbitmq-network
+
+  celery:
+    build: .
+    entrypoint: ./celery-entrypoint.sh
+  
+    environment:
+      - "POSTGRES_USER=postgres"
+      - "POSTGRES_PASSWORD=adm123"
+      - "POSTGRES_ADDRESS=postgres"
+      - "POSTGRES_DB=favorite_products"
+      - "FLASK_APP=favorite_products"
+      - "FLASK_ENV=development"
+      - "SECRET_KEY=1234443sadfsad3214232qabcsadfsadf"
+      - "CELERY_BROKER_URL=amqp://admin:test123@rabbit:5672/favorite_products"
+
+    links:
+      - postgres
+      - rabbit
+
+    volumes:
+      - .:/app/favorite_products
+
+    depends_on:
+      - rabbit
+      - postgres
+
+    networks:
+      - database-network
+      - rabbitmq-network
+
+  postgres:
+    image: postgres
+    environment:
+      POSTGRES_DB: favorite_products
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: "adm123"
+      PGDATA: /tmp
+    ports:
+      - "5432:5432"
+    volumes:
+      - /var/lib/postgresql/data
+    networks:
+      - database-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  admin:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "postgres@gmail.com"
+      PGADMIN_DEFAULT_PASSWORD: "adm123"
+    ports:
+      - "16543:80"
+    depends_on:
+      - postgres
+    networks:
+      - database-network
+
+  app:
+    build: .
+    container_name: favorite_products
+    ports:
+      - "5000:5000"
+    networks:
+      - database-network
+      - rabbitmq-network
+    environment:
+      - "POSTGRES_USER=postgres"
+      - "POSTGRES_PASSWORD=adm123"
+      - "POSTGRES_ADDRESS=postgres"
+      - "POSTGRES_DB=favorite_products"
+      - "FLASK_APP=favorite_products"
+      - "FLASK_ENV=development"
+      - "SECRET_KEY=1234443sadfsad3214232qabcsadfsadf"
+      - "CELERY_BROKER_URL=amqp://admin:test123@rabbit:5672/favorite_products"
+    links:
+      - postgres
+      - rabbit
+
+    depends_on:
+      - postgres
+      - admin
+      - rabbit
+
+networks:
+  database-network:
+    driver: bridge
+
+  rabbitmq-network:
+    driver: bridge
