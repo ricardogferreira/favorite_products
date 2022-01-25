@@ -1,4 +1,4 @@
-# GITHUB API REST
+# FAVORITE PRODUCTS
 Api para para gerenciar cliente e produtos favoritos
 
 ### Docker
