@@ -1,23 +1,17 @@
 from uuid import UUID
 
-from flask_restx import abort, Resource
+from flask_restx import Resource, abort
 
-from favorite_products.exceptions import (
-    CustomerAlreadyExistsError,
-    CustomerNotFoundError,
-)
+from favorite_products.exceptions import (CustomerAlreadyExistsError,
+                                          CustomerNotFoundError)
 from favorite_products.main import api
 from favorite_products.services import CustomerService, FavoriteProductService
 from favorite_products.tasks import create_favorite_product
 
 from .authenticate import authenticate
-from .schema import (
-    schemaPostCustomer,
-    schemaPostFavoriteProduct,
-    schemaPutCustomer,
-    schemaRetrieveCustomer,
-    schemaRetrieveFavoriteProduct,
-)
+from .schema import (schemaPostCustomer, schemaPostFavoriteProduct,
+                     schemaPutCustomer, schemaRetrieveCustomer,
+                     schemaRetrieveFavoriteProduct)
 
 namespace = api.namespace("customers")
 

@@ -1,9 +1,7 @@
-from favorite_products.exceptions import (
-    CustomerAlreadyExistsError,
-    CustomerNotFoundError,
-)
-from favorite_products.services import CustomerService, FavoriteProductService
+from favorite_products.exceptions import (CustomerAlreadyExistsError,
+                                          CustomerNotFoundError)
 from favorite_products.models import Customer, FavoriteProduct
+from favorite_products.services import CustomerService, FavoriteProductService
 
 
 def test_get_customers(mocker, client):

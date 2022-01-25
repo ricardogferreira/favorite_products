@@ -2,7 +2,6 @@ from flask_restx import fields
 
 from favorite_products.main import api
 
-
 schemaPostCustomer = api.model(
     "Post Customer",
     {"name": fields.String(required=True), "email": fields.String(required=True)},

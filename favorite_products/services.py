@@ -3,15 +3,9 @@ from uuid import UUID
 from favorite_products.models import Customer
 
 from .challenge_luizalabs_client import ChallengeLuizalabsClient
-from .repository import (
-    create_customer,
-    create_favorite_product,
-    delete_customer,
-    get_customer_by_id,
-    get_customers,
-    get_favorite_products_by_customer,
-    update_customer,
-)
+from .repository import (create_customer, create_favorite_product,
+                         delete_customer, get_customer_by_id, get_customers,
+                         get_favorite_products_by_customer, update_customer)
 
 
 class CustomerService:

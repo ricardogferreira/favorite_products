@@ -1,5 +1,4 @@
 import logging
-
 from functools import wraps
 
 from flask_restx import abort

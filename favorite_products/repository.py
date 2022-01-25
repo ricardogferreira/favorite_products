@@ -2,11 +2,8 @@ from uuid import UUID
 
 from sqlalchemy.exc import IntegrityError
 
-from .exceptions import (
-    CustomerAlreadyExistsError,
-    CustomerNotFoundError,
-    ProductAlreadyExistsError,
-)
+from .exceptions import (CustomerAlreadyExistsError, CustomerNotFoundError,
+                         ProductAlreadyExistsError)
 from .main import db
 from .models import Customer, FavoriteProduct
 

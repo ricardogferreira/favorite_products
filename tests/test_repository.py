@@ -3,23 +3,16 @@ from unittest import mock
 import pytest
 from sqlalchemy.exc import IntegrityError
 
-from favorite_products.repository import (
-    create_customer,
-    create_favorite_product,
-    get_customer_by_email,
-    get_customer_by_id,
-    get_customers,
-    delete_customer,
-    get_favorite_products_by_customer,
-    update_customer,
-    save_changes,
-)
-
-from favorite_products.exceptions import (
-    CustomerAlreadyExistsError,
-    CustomerNotFoundError,
-    ProductAlreadyExistsError,
-)
+from favorite_products.exceptions import (CustomerAlreadyExistsError,
+                                          CustomerNotFoundError,
+                                          ProductAlreadyExistsError)
+from favorite_products.repository import (create_customer,
+                                          create_favorite_product,
+                                          delete_customer,
+                                          get_customer_by_email,
+                                          get_customer_by_id, get_customers,
+                                          get_favorite_products_by_customer,
+                                          save_changes, update_customer)
 from tests.test_services import FAKE_PRODUCT_ID
 
 FAKE_CUSTOMER_ID = "fca18708-e2c8-4cc5-befb-a66720842425"

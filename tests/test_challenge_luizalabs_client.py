@@ -2,7 +2,8 @@ import pytest
 from requests.exceptions import HTTPError
 from requests.status_codes import codes
 
-from favorite_products.challenge_luizalabs_client import ChallengeLuizalabsClient
+from favorite_products.challenge_luizalabs_client import \
+    ChallengeLuizalabsClient
 from favorite_products.exceptions import ProductApiNotFoundError
 
 FAKE_PRODUCT_ID = "fca18708-e2c8-4cc5-befb-a66720842424"
