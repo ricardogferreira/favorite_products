@@ -33,4 +33,4 @@ class ChallengeLuizalabsClient:
         except HTTPError as http_error:
             if http_error.response.status_code == codes.NOT_FOUND:
                 raise ProductApiNotFoundError
-        raise
+            raise

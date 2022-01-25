@@ -21,16 +21,12 @@ class FavoriteProduct(db.Model):
     __table_args__ = (db.UniqueConstraint("customer_id", "product_id"),)
 
     id = db.Column(UUID(as_uuid=True), primary_key=True, default=uuid4)
-    customer_id = db.Column(
-        UUID(as_uuid=True), db.ForeignKey("customer.id"), nullable=False
-    )
-    customer = db.relationship(
-        "Customer", backref=db.backref("favorite_products", lazy=True)
-    )
+    customer_id = db.Column(UUID(as_uuid=True), db.ForeignKey("customer.id"), nullable=False)
+    customer = db.relationship("Customer", backref=db.backref("favorite_products", lazy=True))
     product_id = db.Column(UUID(as_uuid=True), default=uuid4, nullable=False)
 
     def __repr__(self):
-        return '<FavoriteProduct(product_id="{}", customer_id={})>'.format(
+        return '<FavoriteProduct(product_id="{}", customer_id="{}")>'.format(
             self.product_id, self.customer_id
         )
 

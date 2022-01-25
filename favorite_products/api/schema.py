@@ -25,8 +25,10 @@ schemaRetrieveCustomer = api.model(
 schemaRetrieveFavoriteProduct = api.model(
     "Retrieve Favorite Product",
     {
+        "price": fields.Float(),
+        "image": fields.String(),
         "id": fields.String(),
-        "product_id": fields.String(),
+        "title": fields.String(),
     },
 )
 
