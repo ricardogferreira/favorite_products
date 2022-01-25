@@ -11,7 +11,7 @@ test:
 coverage:
 	pytest -v --cov -vv
 
-coverage-report:
+coverage-report: coverage
 	coverage report -m
 
 serve:
